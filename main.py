@@ -39,7 +39,7 @@ def echo_tl_msg(data):
 
 
 def cmd_calculate(cmd):
-    return eval(_msg)
+    return eval(cmd)
 
 
 def cmd_divide(cmd):
