@@ -1,5 +1,8 @@
 # Tele bot for calculation
 
+![](https://github.com/arig42/tele_bot__myCalc/blob/main/docs/demo.gif)
+
+
 ## HowToUse
 
 ```
@@ -10,7 +13,10 @@
 >>  H:-50, N:0, 1:50
 ```
 
+
 ## Dev
+
+![](https://github.com/arig42/tele_bot__myCalc/blob/main/docs/myCalc.png)
 
 ```
 export TELEGRAM_BOT_TOKEN=123456789:QWERTY
