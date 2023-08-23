@@ -39,7 +39,7 @@ def echo_tl_msg(data):
 
 
 def cmd_calculate(cmd):
-    return eval(_msg)
+    return eval(cmd)
 
 
 def cmd_divide(cmd):
@@ -85,12 +85,8 @@ def handle_tl_msg(data):
     logging.info(f'tl_msg: {json.dumps(data)}')
     data = process_tl_msg(data)
     msg = data['text'] or ''
-    logging.info(msg.startswith('/c'))
-    if msg == '/start':
-        data['text'] = 'Hello'
-        send_tl_msg(data)
-
-    elif msg.startswith('/c'):
+    
+    if msg.startswith('/c'):
         data['text'] = cmd_calculate(msg[2:])
         send_tl_msg(data)
 
@@ -99,7 +95,8 @@ def handle_tl_msg(data):
         send_tl_msg(data)
 
     else:
-        send_tl_msg(data)
+        pass
+        # send_tl_msg(data)
     return 0
 
 
