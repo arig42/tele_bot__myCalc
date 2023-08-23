@@ -7,7 +7,7 @@ from fastapi import FastAPI, Request
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
-
+i = 0
 
 def send_tl_msg(data):
     url = f"https://api.telegram.org/bot{os.getenv('TELEGRAM_BOT_TOKEN')}/sendMessage"
@@ -38,6 +38,49 @@ def echo_tl_msg(data):
     return 0
 
 
+def cmd_calculate(cmd):
+    return eval(_msg)
+
+
+def cmd_divide(cmd):
+    """
+    Handle: `/d 100:H 50:N 50 | 4`
+    """
+    global i
+
+    def increase_by_one():
+        global i
+        i+=1
+        return i
+
+    cmd= cmd[2:]
+    _input = cmd.split('|')
+    details = _input[0].strip()
+    num =  int(_input[1]) if len(_input) > 1 else 2  # DEFAULT = 2
+    separator = ',' if details.find(',') != -1 else ' '
+
+    i = 0
+    res = {}
+    for detail in details.split(separator):
+        _detail = detail.split(':')
+        val = float(_detail[0])
+        p = _detail[1].strip() if len(_detail) > 1 else str(increase_by_one())
+        print(i)
+        try:
+            res[p] += val
+        except KeyError:
+            res[p] = val
+    
+    total = sum([v for v in res.values()])
+    if len(res.keys()) < num:
+        for _ in range(len(res.keys()), num):
+            res[str(increase_by_one())] = 0 
+    
+    per_person = round(total / len(res.keys()), 1)
+
+    return json.dumps({k: (per_person - v) for k, v in res.items()})
+
+
 def handle_tl_msg(data):
     logging.info(f'tl_msg: {json.dumps(data)}')
     data = process_tl_msg(data)
@@ -48,8 +91,11 @@ def handle_tl_msg(data):
         send_tl_msg(data)
 
     elif msg.startswith('/c'):
-        _msg = msg[2:]
-        data['text'] = eval(_msg)
+        data['text'] = cmd_calculate(msg[2:])
+        send_tl_msg(data)
+
+    elif msg.startswith('/d'):
+        data['text'] = cmd_divide(msg)
         send_tl_msg(data)
 
     else:

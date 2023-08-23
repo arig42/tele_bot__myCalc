@@ -1,21 +1,33 @@
 # Tele bot for calculation
 
-
-## Test
+## HowToUse
 
 ```
+/c (124 + 1) / 5 
+>> 25
 
+/d 100:H 50:N | 3
+>>  H:-50, N:0, 1:50
+```
+
+## Dev
+
+```
 export TELEGRAM_BOT_TOKEN=123456789:QWERTY
 
 uvicorn main:app
+```
+
+```
+export HOST=abc.xyz
 
 curl --request POST \
-     --url https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook \
+     --url https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook \
      --header 'accept: application/json' \
      --header 'content-type: application/json' \
      --data '
 {
-  "url": "{HOST/tl",
+  "url": "$HOST/tl",
 }
 '
 ```
@@ -56,4 +68,8 @@ curl --request POST \
 }
 ```
 
-- Update permission to read messages from group: Chat with BotFather `/setprivacy`
+- Update permission to read messages from group
+
+```
+Chat with BotFather `/setprivacy`
+```
