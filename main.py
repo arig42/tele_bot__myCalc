@@ -110,6 +110,6 @@ async def tele(request: Request):
     try:
         handle_tl_msg(await request.json())
     except Exception as e:
-        raise e
+        # raise e
         return {"message": repr(e)}
     return {"message": "OK"}
