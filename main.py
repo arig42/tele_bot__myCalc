@@ -43,7 +43,8 @@ def cmd_calculate(cmd):
 
 
 def cmd_modulus10(data):
-    return sum([int(_) for _ in list(data.strip())]) % 10
+    _s = sum([int(_) for _ in list(data.strip())])
+    return '{} ({})'.format(_s % 10, _s)
 
 
 def cmd_divide(cmd):
