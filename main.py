@@ -42,6 +42,10 @@ def cmd_calculate(cmd):
     return eval(cmd)
 
 
+def cmd_modulus10(data):
+    return sum([int(_) for _ in list(a.strip())]) % 10
+
+
 def cmd_divide(cmd):
     """
     Handle: `/d 100:H 50:N 50 | 4`
@@ -92,6 +96,10 @@ def handle_tl_msg(data):
 
     elif msg.startswith('/d'):
         data['text'] = cmd_divide(msg)
+        send_tl_msg(data)
+
+    elif msg.startswith('/m'):
+        data['text'] = cmd_modulus10(msg[2:])
         send_tl_msg(data)
 
     else:
